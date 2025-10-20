@@ -40,18 +40,10 @@ const App = () => {
 							}
 						/>
 						<Route
-							path="/:type/:id"
-							element={<CardByIdAndType />}
-						/>
-						<Route
 							path="/episodes"
 							element={
 								<DataTable data={episodes} type="episodes" />
 							}
-						/>
-						<Route
-							path="/:type/:id"
-							element={<CardByIdAndType />}
 						/>
 						<Route
 							path="/locations"
