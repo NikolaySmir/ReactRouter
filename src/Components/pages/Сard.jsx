@@ -81,9 +81,7 @@ const Wrapper = styled.div`
 `;
 
 export default function CardByIdAndType() {
-	console.log(123);
 	const { type, id } = useParams();
-	console.log(id, type);
 
 	const dataMap = {
 		characters,
