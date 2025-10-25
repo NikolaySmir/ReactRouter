@@ -1,0 +1,7 @@
+.input-field {
+	border: none;
+}
+
+.input-field:focus {
+	outline: none !important;
+}
