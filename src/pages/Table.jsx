@@ -1,11 +1,15 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useSearchCategories } from "../hooks/useSearchCategories";
+import { Loader } from "../Components/Loader";
 
 const shouldForwardProp = (prop) =>
 	!["alignCenter", "alignLeft"].includes(prop);
 
 const Container = styled.div`
+	margin-bottom: 2em;
+	//overflow: auto;
 	display: flex;
 	justify-content: center;
 `;
@@ -54,12 +58,47 @@ const TextSpan = styled.span`
 	user-select: text;
 `;
 
-function DataTable({ data, type }) {
+function DataTable({ setCategoriesType }) {
+	const [query, setQuery] = useState("");
+	const [pageNumber, setPageNumber] = useState(1);
+	const { type } = useParams();
+
+	useEffect(() => {
+		setCategoriesType(type);
+		setPageNumber(1);
+		setQuery("");
+	}, [type, setCategoriesType]);
+
 	const navigate = useNavigate();
 
 	const handleClick = (id) => {
 		navigate(`/${type}/${id}`);
 	};
+
+	const { loading, error, categories, hasMore } = useSearchCategories(
+		type,
+		query,
+		pageNumber
+	);
+
+	const observer = useRef();
+	const lastNodeRef = useCallback(
+		(node) => {
+			if (loading) return;
+			if (observer.current) {
+				observer.current.disconnect();
+			}
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting && hasMore) {
+					setPageNumber((prevState) => prevState + 1);
+				}
+			});
+			if (node) {
+				observer.current.observe(node);
+			}
+		},
+		[loading, hasMore]
+	);
 
 	return (
 		<Container>
@@ -76,21 +115,46 @@ function DataTable({ data, type }) {
 						</tr>
 					</thead>
 					<tbody>
-						{data.map((item) => (
-							<Tr
-								key={item.id}
-								onClick={() => handleClick(item.id)}
-							>
-								<Td>
-									<TextSpan>{item.id}</TextSpan>
-								</Td>
-								<Td alignLeft>
-									<TextSpan>{item.name}</TextSpan>
-								</Td>
-							</Tr>
-						))}
+						{categories.map((item, index) => {
+							if (categories.length === index + 1) {
+								return (
+									<Tr
+										ref={lastNodeRef}
+										key={item.id}
+										onClick={() => handleClick(item.id)}
+									>
+										<Td>
+											<TextSpan>{item.id}</TextSpan>
+										</Td>
+										<Td alignLeft>
+											<TextSpan>{item.name}</TextSpan>
+										</Td>
+									</Tr>
+								);
+							} else {
+								return (
+									<Tr
+										key={item.id}
+										onClick={() => handleClick(item.id)}
+									>
+										<Td>
+											<TextSpan>{item.id}</TextSpan>
+										</Td>
+										<Td alignLeft>
+											<TextSpan>{item.name}</TextSpan>
+										</Td>
+									</Tr>
+								);
+							}
+						})}
 					</tbody>
 				</Table>
+				{loading && <Loader />}
+				{error && (
+					<div className="categories-error">
+						Что-то пошло не так...
+					</div>
+				)}
 			</TableWrapper>
 		</Container>
 	);

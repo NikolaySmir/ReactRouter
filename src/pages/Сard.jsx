@@ -1,9 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import characters from "../../data/characters.json";
-import episodes from "../../data/episodes.json";
-import locations from "../../data/locations.json";
+import character from "../../data/characters.json";
+import episode from "../../data/episodes.json";
+import location from "../../data/locations.json";
+import { useGetCategoryCard } from "../hooks/useGetCategoryCard";
+import { Loader } from "../Components/Loader";
 
 const CenteredWrapper = styled.div`
 	display: flex;
@@ -21,6 +23,7 @@ const Container = styled.div`
 
 const DetailRow = styled.div`
 	margin-bottom: 8px;
+	word-break: break-word;
 `;
 
 const ImageWrapper = styled.div`
@@ -30,10 +33,24 @@ const ImageWrapper = styled.div`
 export function UniversalDetail({ item }) {
 	if (!item || typeof item !== "object") return null;
 
+	const exludeFields = [
+		"origin",
+		"location",
+		"episode",
+		"url",
+		"residents",
+		"characters",
+	];
+
 	return (
 		<CenteredWrapper>
 			<Container>
 				{Object.entries(item).map(([key, value]) => {
+					if (
+						exludeFields.some((item) => item === key.toLowerCase())
+					) {
+						return;
+					}
 					if (value === null || value === undefined || value === "")
 						return null;
 					if (key.toLowerCase() === "image") {
@@ -71,33 +88,17 @@ export function UniversalDetail({ item }) {
 	);
 }
 
-const Wrapper = styled.div`
-	max-width: 600px;
-	margin: 1rem auto;
-	padding: 16px;
-	border: 4px solid #333;
-	border-radius: 8px;
-	font-family: Arial, sans-serif;
-`;
-
 export default function CardByIdAndType() {
 	const { type, id } = useParams();
 
-	const dataMap = {
-		characters,
-		episodes,
-		locations,
-	};
+	let { data, loading, error } = useGetCategoryCard(type, id);
 
-	const dataArray = dataMap[type] || [];
-	const item = dataArray.find((el) => el.id === Number(id));
-
-	if (!item)
-		return (
-			<Wrapper>
-				Элемент с id={id} не найден в {type}
-			</Wrapper>
-		);
-
-	return <UniversalDetail item={item} />;
+	if (!data) return;
+	if (loading) {
+		return <Loader />;
+	}
+	if (error) {
+		return <div className="card-error">Что-то пошло не так...</div>;
+	}
+	return <UniversalDetail item={data} />;
 }

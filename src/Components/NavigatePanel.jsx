@@ -20,17 +20,17 @@ const NavigatePanelContainer = ({ className }) => {
 			<div className="left-area" />
 			<div className="center-area">
 				<NavigationLink
-					to="/characters"
+					to="/character"
 					label="Characters"
 					fontSize="20px"
 				/>
 				<NavigationLink
-					to="/locations"
+					to="/location"
 					label="Locations"
 					fontSize="20px"
 				/>
 				<NavigationLink
-					to="/episodes"
+					to="/episode"
 					label="Episodes"
 					fontSize="20px"
 				/>

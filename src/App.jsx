@@ -1,19 +1,16 @@
-import React from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { NavigatePanel } from "./Components/NavigatePanel";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import NotFound from "./pages/Error";
-import Main from "./pages/Main";
-import DataTable from "./pages/Table";
 import characters from "../data/characters.json";
 import episodes from "../data/episodes.json";
 import locations from "../data/locations.json";
 import "./index.css";
-import CardByIdAndType from "./pages/Сard";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
 import { AuthProvider } from "./context/AuthProvider";
 import { PrivateRoute } from "./context/PrivateRoute";
+import { Loader } from "./Components/Loader";
+import ErrorBoundary from "./Components/ErrorBoundary";
 
 const AppStyled = styled.div`
 	display: flex;
@@ -21,68 +18,92 @@ const AppStyled = styled.div`
 `;
 
 const MainContent = styled.div`
+	overflow-y: auto;
 	padding-top: 50px;
 	max-height: 94vh;
-	overflow-y: auto;
 `;
 
+const Main = lazy(() => import("./pages/Main"));
+const Signin = lazy(() => import("./pages/Signin"));
+const Signup = lazy(() => import("./pages/Signup"));
+const DataTable = lazy(() => import("./pages/Table"));
+const CardByIdAndType = lazy(() => import("./pages/Сard"));
+
 const App = () => {
+	const [categoriesType, setCategoriesType] = useState("");
 	return (
 		<AuthProvider>
 			<AppStyled>
 				<Router>
 					<NavigatePanel>Шаблон</NavigatePanel>
-					<MainContent>
-						<Routes>
-							<Route path="/" element={<Main />} />
-							<Route path="/login" element={<Signin />} />
-							<Route path="/register" element={<Signup />} />
-							<Route
-								path="/characters"
-								element={
-									<PrivateRoute>
-										<DataTable
-											data={characters}
-											type="characters"
+					<Suspense fallback={<Loader />}>
+						<ErrorBoundary>
+							<MainContent>
+								<Routes>
+									<Route
+										path="/"
+										element={
+											<Suspense fallback={<Loader />}>
+												<Main />
+											</Suspense>
+										}
+									/>
+									<Route
+										path="/login"
+										element={
+											<Suspense fallback={<Loader />}>
+												<Signin />
+											</Suspense>
+										}
+									/>
+									<Route
+										path="/register"
+										element={
+											<Suspense fallback={<Loader />}>
+												<Signup />
+											</Suspense>
+										}
+									/>
+									{
+										<Route
+											path="/:type"
+											element={
+												<PrivateRoute>
+													<Suspense
+														fallback={<Loader />}
+													>
+														<DataTable
+															setCategoriesType={
+																setCategoriesType
+															}
+														/>
+													</Suspense>
+												</PrivateRoute>
+											}
 										/>
-									</PrivateRoute>
-								}
-							/>
-							<Route
-								path="/episodes"
-								element={
-									<PrivateRoute>
-										{" "}
-										<DataTable
-											data={episodes}
-											type="episodes"
-										/>
-									</PrivateRoute>
-								}
-							/>
-							<Route
-								path="/locations"
-								element={
-									<PrivateRoute>
-										{" "}
-										<DataTable
-											data={locations}
-											type="locations"
-										/>
-									</PrivateRoute>
-								}
-							/>
-							<Route
-								path="/:type/:id"
-								element={
-									<PrivateRoute>
-										<CardByIdAndType />
-									</PrivateRoute>
-								}
-							/>
-							<Route path="*" element={<NotFound />} />
-						</Routes>
-					</MainContent>
+									}
+									<Route
+										path="/:type/:id"
+										element={
+											<PrivateRoute>
+												<Suspense fallback={<Loader />}>
+													<CardByIdAndType />
+												</Suspense>
+											</PrivateRoute>
+										}
+									/>
+									<Route
+										path="*"
+										element={
+											<Suspense fallback={<Loader />}>
+												<NotFound />
+											</Suspense>
+										}
+									/>
+								</Routes>
+							</MainContent>
+						</ErrorBoundary>
+					</Suspense>
 				</Router>
 			</AppStyled>
 		</AuthProvider>
