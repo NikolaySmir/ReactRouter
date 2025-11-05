@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+	createContext,
+	useContext,
+	useState,
+	useCallback,
+	useMemo,
+} from "react";
 
 const AuthContext = createContext(null);
 
@@ -13,23 +19,32 @@ export const AuthProvider = ({ children }) => {
 			: null
 	);
 
-	const signin = (newUser, callback) => {
-		setUser(newUser);
-		localStorage.setItem("user", JSON.stringify(newUser));
-		callback();
-	};
+	const signin = useCallback(
+		(newUser, callback) => {
+			setUser(newUser);
+			localStorage.setItem("user", JSON.stringify(newUser));
+			callback();
+		},
+		[setUser]
+	);
 
-	const signout = (callback) => {
-		setUser(null);
-		localStorage.removeItem("user");
-		callback();
-	};
+	const signout = useCallback(
+		(callback) => {
+			setUser(null);
+			localStorage.removeItem("user");
+			callback();
+		},
+		[setUser]
+	);
 
-	const value = {
-		user: user,
-		signin,
-		signout,
-	};
+	const value = useMemo(
+		() => ({
+			user,
+			signin,
+			signout,
+		}),
+		[user, signin, signout]
+	);
 
 	return (
 		<AuthContext.Provider value={value}>{children}</AuthContext.Provider>

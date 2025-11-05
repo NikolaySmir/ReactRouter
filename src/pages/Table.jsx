@@ -116,7 +116,7 @@ function DataTable({ setCategoriesType }) {
 					</thead>
 					<tbody>
 						{categories.map((item, index) => {
-							if (categories.length === index + 1) {
+							if (categories.length - 10 === index + 1) {
 								return (
 									<Tr
 										ref={lastNodeRef}
