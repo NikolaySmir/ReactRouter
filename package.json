@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"start": "npx webpack serve --config webpack.config.dev.js",
-		"build": "npx webpack --config webpack.config.prod.js",
-		"build:dev": "npx webpack --config webpack.config.dev.js"
+		"start": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
 	},
 	"type": "module",
 	"author": "",
@@ -19,6 +19,7 @@
 		"@eslint/css": "^0.11.0",
 		"@eslint/js": "^9.34.0",
 		"@eslint/json": "^0.13.2",
+		"@vitejs/plugin-react": "^4.7.0",
 		"babel-loader": "^10.0.0",
 		"copy-webpack-plugin": "^13.0.1",
 		"css-loader": "^7.1.2",
@@ -39,6 +40,7 @@
 		"terser-webpack-plugin": "^5.3.14",
 		"ts-loader": "^9.5.4",
 		"typescript": "^5.9.2",
+		"vite": "^6.4.1",
 		"webpack": "^5.101.3",
 		"webpack-cli": "^6.0.1",
 		"webpack-dev-server": "^5.2.2",
