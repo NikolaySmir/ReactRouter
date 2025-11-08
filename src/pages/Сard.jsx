@@ -1,39 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import { Card, Row, Col, Typography, Image, Spin } from "antd";
 import character from "../../data/characters.json";
 import episode from "../../data/episodes.json";
 import location from "../../data/locations.json";
 import { useGetCategoryCard } from "../hooks/useGetCategoryCard";
-import { Loader } from "../Components/Loader";
 
-const CenteredWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-`;
-
-const Container = styled.div`
-	max-width: 600px;
-	padding: 16px;
-	border: 4px solid #333;
-	border-radius: 8px;
-	font-family: Arial, sans-serif;
-	background-color: #fafafa;
-`;
-
-const DetailRow = styled.div`
-	margin-bottom: 8px;
-	word-break: break-word;
-`;
-
-const ImageWrapper = styled.div`
-	margin-top: 8px;
-`;
+const { Text } = Typography;
 
 export function UniversalDetail({ item }) {
 	if (!item || typeof item !== "object") return null;
 
-	const exludeFields = [
+	const excludeFields = [
 		"origin",
 		"location",
 		"episode",
@@ -43,62 +21,80 @@ export function UniversalDetail({ item }) {
 	];
 
 	return (
-		<CenteredWrapper>
-			<Container>
-				{Object.entries(item).map(([key, value]) => {
-					if (
-						exludeFields.some((item) => item === key.toLowerCase())
-					) {
-						return;
-					}
-					if (value === null || value === undefined || value === "")
-						return null;
-					if (key.toLowerCase() === "image") {
-						return (
-							<DetailRow key={key}>
-								<strong>{key}:</strong>
-								<ImageWrapper>
-									<img
-										src={value}
-										alt={item.name || "image"}
-									/>
-								</ImageWrapper>
-							</DetailRow>
-						);
-					}
-					if (key.toLowerCase() === "created") {
-						const date = new Date(value);
-						const formatted = isNaN(date)
-							? value
-							: date.toLocaleString();
-						return (
-							<DetailRow key={key}>
-								<strong>{key}:</strong> {formatted}
-							</DetailRow>
-						);
-					}
+		<Card style={{ width: "400px", margin: "0 auto", padding: 16 }}>
+			{Object.entries(item).map(([key, value]) => {
+				if (excludeFields.includes(key.toLowerCase())) {
+					return null;
+				}
+				if (value === null || value === undefined || value === "") {
+					return null;
+				}
+				if (key.toLowerCase() === "image") {
 					return (
-						<DetailRow key={key}>
-							<strong>{key}:</strong> {value.toString()}
-						</DetailRow>
+						<Row key={key} gutter={[0, 8]}>
+							<Col span={24}>
+								<Text strong>{key}:</Text>
+							</Col>
+							<Col span={24} style={{ textAlign: "center" }}>
+								<Image
+									src={value}
+									alt={item.name || "image"}
+									style={{
+										maxWidth: "100%",
+										borderRadius: 8,
+									}}
+								/>
+							</Col>
+						</Row>
 					);
-				})}
-			</Container>
-		</CenteredWrapper>
+				}
+				if (key.toLowerCase() === "created") {
+					const date = new Date(value);
+					const formatted = isNaN(date)
+						? value
+						: date.toLocaleString();
+					return (
+						<Row key={key} gutter={[0, 8]}>
+							<Col span={24}>
+								<Text strong>{key}:</Text> {formatted}
+							</Col>
+						</Row>
+					);
+				}
+
+				return (
+					<Row key={key} gutter={[0, 8]}>
+						<Col span={24}>
+							<Text strong>{key}:</Text> {value.toString()}
+						</Col>
+					</Row>
+				);
+			})}
+		</Card>
 	);
 }
 
 export default function CardByIdAndType() {
 	const { type, id } = useParams();
 
-	let { data, loading, error } = useGetCategoryCard(type, id);
+	const { data, loading, error } = useGetCategoryCard(type, id);
 
-	if (!data) return;
 	if (loading) {
-		return <Loader />;
+		return <Spin style={{ display: "block", margin: "20px auto" }} />;
 	}
+
 	if (error) {
-		return <div className="card-error">Что-то пошло не так...</div>;
+		return (
+			<div
+				className="card-error"
+				style={{ textAlign: "center", color: "red", marginTop: 20 }}
+			>
+				Что-то пошло не так...
+			</div>
+		);
 	}
+
+	if (!data) return null;
+
 	return <UniversalDetail item={data} />;
 }

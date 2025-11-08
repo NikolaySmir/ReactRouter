@@ -10,11 +10,11 @@ const StyledLink = styled(NavLink)`
 	transition: color 0.3s;
 
 	&.active {
-		color: #0cb328ff;
+		color: #1677ff;
 	}
 
 	&:hover {
-		color: #c0e90cff;
+		color: #4096ff;
 	}
 `;
 

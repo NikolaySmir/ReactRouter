@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-	color: #0cb328ff;
+	color: #1677ff;
 	font-family: Arial, sans-serif;
 	font-size: 2em;
 	margin-bottom: 20px;

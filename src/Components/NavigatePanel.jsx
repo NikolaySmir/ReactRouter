@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import NavigationLink from "./NavigationLink";
-import Button from "./Button";
+import { Button } from "antd";
 import { useAuth } from "../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavigatePanelContainer = ({ className }) => {
 	const auth = useAuth();
@@ -41,12 +41,16 @@ const NavigatePanelContainer = ({ className }) => {
 						{auth.user?.email}
 					</p>
 					<div className="right-area">
-						<Button onClick={handleSignout}>Выйти</Button>
+						<Button type="primary" onClick={handleSignout}>
+							Выйти
+						</Button>
 					</div>
 				</div>
 			) : (
 				<div className="right-area">
-					<Button to="/login">Войти</Button>
+					<Button type="primary">
+						<Link to="/login">Войти</Link>
+					</Button>
 				</div>
 			)}
 		</header>

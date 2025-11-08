@@ -18,7 +18,6 @@ const AppStyled = styled.div`
 `;
 
 const MainContent = styled.div`
-	overflow-y: auto;
 	padding-top: 50px;
 	max-height: 94vh;
 `;
