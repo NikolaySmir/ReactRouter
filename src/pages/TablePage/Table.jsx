@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSearchCategories } from "../hooks/useSearchCategories";
-import { Table, Spin } from "antd";
+import { useSearchCategories } from "../../features/categories";
 import { useParams, useNavigate } from "react-router-dom";
-import { Typography } from "antd";
+import { Typography, Table, Spin } from "antd";
 const { Text } = Typography;
 
 function DataTable({ setCategoriesType }) {

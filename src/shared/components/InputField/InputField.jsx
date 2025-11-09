@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "../styles.css";
 
 function Input(props) {
 	const {
@@ -197,4 +197,4 @@ function Input(props) {
 	);
 }
 
-export default Input;
+export { Input };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../../shared/context/User/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Signin = () => {

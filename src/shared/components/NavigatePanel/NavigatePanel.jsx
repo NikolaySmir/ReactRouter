@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import NavigationLink from "./NavigationLink";
+import { NavigationLink } from "../../components";
 import { Button } from "antd";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../../context/User/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 
 const NavigatePanelContainer = ({ className }) => {

@@ -1,16 +1,9 @@
 import React, { lazy, Suspense, useState } from "react";
-import { NavigatePanel } from "./Components/NavigatePanel";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import NotFound from "./pages/Error";
-import characters from "../data/characters.json";
-import episodes from "../data/episodes.json";
-import locations from "../data/locations.json";
-import "./index.css";
-import { AuthProvider } from "./context/AuthProvider";
-import { PrivateRoute } from "./context/PrivateRoute";
-import { Loader } from "./Components/Loader";
-import ErrorBoundary from "./Components/ErrorBoundary";
+import NotFound from "../pages/ErrorPage/Error";
+import { AuthProvider, PrivateRoute } from "../shared/context/User";
+import { ErrorBoundary, Loader, NavigatePanel } from "../shared/components";
 
 const AppStyled = styled.div`
 	display: flex;
@@ -22,11 +15,11 @@ const MainContent = styled.div`
 	max-height: 94vh;
 `;
 
-const Main = lazy(() => import("./pages/Main"));
-const Signin = lazy(() => import("./pages/Signin"));
-const Signup = lazy(() => import("./pages/Signup"));
-const DataTable = lazy(() => import("./pages/Table"));
-const CardByIdAndType = lazy(() => import("./pages/Сard"));
+const Main = lazy(() => import("../pages/MainPage/Main"));
+const Signin = lazy(() => import("../pages/SignInPage/Signin"));
+const Signup = lazy(() => import("../pages/SignUpPage/Signup"));
+const DataTable = lazy(() => import("../pages/TablePage/Table"));
+const CardByIdAndType = lazy(() => import("../pages/CardPage/Сard"));
 
 const App = () => {
 	const [categoriesType, setCategoriesType] = useState("");
@@ -109,4 +102,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export { App };

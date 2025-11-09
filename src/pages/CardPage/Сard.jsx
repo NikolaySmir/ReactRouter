@@ -1,10 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Card, Row, Col, Typography, Image, Spin } from "antd";
-import character from "../../data/characters.json";
-import episode from "../../data/episodes.json";
-import location from "../../data/locations.json";
-import { useGetCategoryCard } from "../hooks/useGetCategoryCard";
+import { useGetCategoryCard } from "../../features/categories";
 
 const { Text } = Typography;
 

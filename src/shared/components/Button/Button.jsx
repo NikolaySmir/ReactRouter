@@ -62,4 +62,4 @@ const Button = ({ to, children, type, ...rest }) => {
 	);
 };
 
-export default Button;
+export { Button };

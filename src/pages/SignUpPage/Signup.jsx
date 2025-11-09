@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Input from "../Components/Input";
-import Button from "../Components/Button";
+import Input from "../../Components/Input";
+import Button from "../../Components/Button";
 
 function Signup({ onSubmit }) {
 	const [name, setName] = useState("");

@@ -32,4 +32,4 @@ function NavigationLink({ to, label, padding, fontSize }) {
 	);
 }
 
-export default NavigationLink;
+export { NavigationLink };
