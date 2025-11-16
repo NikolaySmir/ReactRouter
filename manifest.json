@@ -1,0 +1,101 @@
+{
+	"name": "Categories",
+	"short_name": "Categories",
+	"start_url": "/index.html",
+	"display": "standalone",
+	"background_color": "#fff",
+	"theme_color": "#1677ff",
+	"orientation": "portrait-primary",
+	"icons": [
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-16.png",
+			"type": "image/png",
+			"sizes": "16x16",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-20.png",
+			"type": "image/png",
+			"sizes": "20x20",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-24.png",
+			"type": "image/png",
+			"sizes": "24x24",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-30.png",
+			"type": "image/png",
+			"sizes": "30x30",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-32.png",
+			"type": "image/png",
+			"sizes": "32x32",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-36.png",
+			"type": "image/png",
+			"sizes": "36x36",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-40.png",
+			"type": "image/png",
+			"sizes": "40x40",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-44.png",
+			"type": "image/png",
+			"sizes": "44x44",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-48.png",
+			"type": "image/png",
+			"sizes": "48x48",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-60.png",
+			"type": "image/png",
+			"sizes": "60x60",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-64.png",
+			"type": "image/png",
+			"sizes": "64x64",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-72.png",
+			"type": "image/png",
+			"sizes": "72x72",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-80.png",
+			"type": "image/png",
+			"sizes": "80x80",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-96.png",
+			"type": "image/png",
+			"sizes": "96x96",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/src/shared/assets/Square44x44Logo.altform-lightunplated_targetsize-256.png",
+			"type": "image/png",
+			"sizes": "256x256",
+			"purpose": "any maskable"
+		}
+	]
+}
